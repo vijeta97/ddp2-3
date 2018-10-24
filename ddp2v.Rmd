@@ -1,0 +1,31 @@
+```{r}
+#suppressWarnings(install.packages("ggplot2"))
+#suppressWarnings(install.packages("plotly"))
+suppressMessages(suppressWarnings(library(ggplot2)))
+suppressMessages(suppressWarnings(library(plotly)))
+suppressMessages(suppressWarnings(library(tidyr))) 
+suppressMessages(suppressWarnings(library(dplyr))) 
+
+uuh <-mtcars
+```
+
+```{r}
+vol<-as.data.frame(cbind(uuh$mpg,uh$cyl))
+colnames(vol)<-c("mpg","cyl")
+
+kts<-ts(1:61, frequency = 12, start = c(2012, 1)) 
+vols<- as.data.frame(vol) %>% gather(index, volume) %>% 
+    mutate(time=rep(time(kts),2))
+
+font  <- list(  family = "Arial",   size = 16,  color = "#7f7f7f")
+XAx <- list(  title = "sepal length",    titlefont = font)
+YAx <- list(  title = "petal length",               titlefont = font)
+
+
+plotly_plot<-plot_ly(vols, x = ~mpg, y= ~cyl, color= ~index
+                     , type="scatter", mode="lines") %>% 
+layout(xaxis = xAxis, yaxis = yAxis
+       ,legend= list(x = 1 ,    y = 1 ,  bgcolor = "#F3F3F3" ))
+
+suppressMessages(suppressWarnings(plotly_plot))
+```
