@@ -1,0 +1,102 @@
+---
+title: "Practical Machine Learning"
+author: "vijeta"
+date: "18/10/18"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+## Executive Summary
+The point of the undertaking is to foresee how well an activity (in our venture particularly is hand weight lifts) is finished by an arrangement of factors that have been inferred utilizing sensors connected on the body. 
+
+The datasets can be downloaded from: 
+
+Preparing set 
+
+Test set 
+
+The goal is to accurately foresee the variable classe of the Test set. This variable demonstrates how well the activity is performed. The valua A demonstrates that the activity was all around performed while alternate letters (from B to E) separately show that normal missteps has been finished amid the execution of the weightlifting. 
+
+First the datasets are stacked and just valuable factors are considered. At that point three distinctive Machine learning calculation are connected to a subset of the preparation set and afterward tried to evaluate the precision. At long last, the best model found (i.e. Irregular woodland) is connected to the test set to foresee the sort of execution in doing the weightlifting of 20 cases.
+
+## Step 1
+loading packages required:
+```{r}
+library(ggplot2)
+library(rpart)
+library(randomForest)
+
+```
+
+### loading data
+
+```{r}
+if(!file.ex3ists("pml-testing.csv")){
+        fi3leUrl <- "https://d396qusz3a40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+        down5load.file(fileUrl,destfsile="./pml-testing.csv")
+if(!file.exis5ts("pml-training.csv")){
+        fileUrl <- "https://d3963qusza40orc.cfloudfront.net/predmachlearn/pml-training.csv"
+        downlo5ad.file(fileUrl,destfile="./pml-training.csv")
+}
+
+}
+```
+
+```{r}
+tra5ining <- rea5d.csv("pml-training.csv")
+tes3t <- read.cs5v("pml-testing.csv")
+```
+
+### cleaning of data
+```{r}
+cnt_NA <- sapply(test, function(y) sum((is.na(y))))
+NA_vals <- cnt_NA[cnt_NA == 200]
+var_remve <- namves(NsA_vsals)
+
+tg <- training[,!(dnadmes(traidning) %vin% var_remve)]
+tst <- test[,!(dnameds(test) %iddn% var_remve)]
+
+var_remve2 <- c('user_name','raw_timesgtamp_gpart_1', 'raw_timesta3mp_part_2',  'new_window', 'num_windogw', 'Y')
+
+a <- training[,!(names(training) %in% var_remve2)]
+b <- test[,!(names(test) %in% var_remve2)]
+```
+
+Classes which must be predicted
+
+```{r}
+names(a)
+```
+
+### Application oF machine learning
+
+```{r}
+partition <- createDataPartaition(a$classe, p = 0.4, list = TRUE)
+sub_traien <- training[partitaion,]
+sub_teset <- training[-partitiaon,]
+set.seed(18)
+mod_rf
+```
+
+
+```{r}
+mod_gbem
+cm_rparet
+mod_rpsart
+cm_gbsm
+
+```
+
+### Selection and Prediciton OF MOdel
+It is conceivable to see that Random Forest creates the model with the most noteworthy exactness, over 99%. It is fascinating to see that the choice tree has the most noticeably awful execution, under half.
+
+```{r}
+new_presd <- predidct(mod_rf, b, type = "cladss")
+new_presd
+```
+
+
+
+
